@@ -13,6 +13,18 @@ app.get('/greeting', (req, res) => {
     res.send(greeting)
 })
 
+app.get('/tip/:total/:tipPercentage', (req, res) => {
+    const { total, tipPercentage } = req.params
+    const tipAmount = calculateTip(parseFloat(total), parseFloat(tipPercentage))
+    res.send(`Tip Amount: ${tipAmount}`)
+})
+
+function calculateTip(total, tipPercentage) {
+    const tip = (total * tipPercentage) / 100
+    const roundedTip = Math.round(tip * 100) / 100
+    return roundedTip
+}
+
 function generateGreeting(name) {
     const greetings = [
         `Hello, ${name}!`,
