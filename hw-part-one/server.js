@@ -19,6 +19,28 @@ app.get('/tip/:total/:tipPercentage', (req, res) => {
     res.send(`Tip Amount: ${tipAmount}`)
 })
 
+
+app.get('/magic/:question', (req, res) => {
+    const { question } = req.params
+    const magic8BallResponse = generateMagic8BallResponse()
+    res.send(`<h1>Your Question: ${question}</h1><h1>Magic 8 Ball Response: ${magic8BallResponse}</h1>`)
+})
+
+function generateMagic8BallResponse() {
+    const responses = [
+        "Yes",
+        "No",
+        "Ask again later",
+        "Cannot predict now",
+        "Don't count on it",
+        "My sources say yes",
+        "Outlook not so good",
+        "Very doubtful"
+    ]
+    const randomResponse = responses[Math.floor(Math.random() * responses.length)]
+    return randomResponse
+}
+
 function calculateTip(total, tipPercentage) {
     const tip = (total * tipPercentage) / 100
     const roundedTip = Math.round(tip * 100) / 100
